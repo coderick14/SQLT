@@ -58,13 +58,33 @@ void printStack(stack* s)
   for(int i=s->top;i>=0;i--)
     cout<<s->array[i]<<endl;
 }
+void insertAtBottom(stack* s,int data)
+{
+  if(s->top==-1)
+  {
+    push(s,data);
+    return;
+  }
+  int temp=pop(s);
+  insertAtBottom(s,data);
+  push(s,temp);
+}
+
+void reverseStack(stack* s)
+{
+  if(s->top==-1)
+    return;
+  int data=pop(s);
+  reverseStack(s);
+  insertAtBottom(s,data);
+}
 int main()
 {
   int ch,p,data;
   stack* s=createNode();
   while(1)
   {
-    cout<<"1. Push\n2. Pop\n3. GetTop\n4. Print Stack\n5. Exit\n";
+    cout<<"1. Push\n2. Pop\n3. GetTop\n4. Reverse Stack\n5. Print Stack\n6. Exit\n";
     cin>>ch;
     switch(ch)
     {
@@ -77,11 +97,14 @@ int main()
               break;
       case 3: cout<<getTop(s)<<endl;
               break;
-      case 4: printStack(s);
+      case 4: reverseStack(s);
+              cout<<"Stack reversed\n";
               break;
-      case 5: break;
+      case 5: printStack(s);
+              break;
+      case 6: break;
     }
-    if(ch==5)
+    if(ch==6)
       break;
   }
   delete s->array;
