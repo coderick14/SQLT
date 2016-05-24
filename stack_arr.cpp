@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 #define endl '\n'
 using namespace std;
 struct stack
@@ -19,16 +20,13 @@ stack* createNode()
     return NULL;
   return s;
 }
-void push(stack* s)
+void push(stack* s,int data)
 {
   if(s->top==s->capacity-1)
   {
     cout<<"Stack overflow"<<endl;
     return;
   }
-  int data;
-  cout<<"Enter data"<<endl;
-  cin>>data;
   s->array[++(s->top)]=data;
 }
 int pop(stack* s)
@@ -36,7 +34,7 @@ int pop(stack* s)
   if(s->top==-1)
   {
     cout<<"Stack underflow"<<endl;
-    return -1;
+    return INT_MIN;
   }
   int p=s->array[(s->top)--];
   return p;
@@ -46,9 +44,9 @@ int getTop(stack* s)
   if(s->top==-1)
   {
     cout<<"Stack underflow"<<endl;
-    return -1;
+    return INT_MIN;
   }
-  return s->top;
+  return s->array[s->top];
 }
 void printStack(stack* s)
 {
@@ -62,7 +60,7 @@ void printStack(stack* s)
 }
 int main()
 {
-  int ch,p;
+  int ch,p,data;
   stack* s=createNode();
   while(1)
   {
@@ -70,9 +68,12 @@ int main()
     cin>>ch;
     switch(ch)
     {
-      case 1: push(s);
+      case 1: cout<<"Enter data\n";
+              cin>>data;
+              push(s,data);
               break;
       case 2: p=pop(s);
+              cout<<"Popped "<<p<<endl;
               break;
       case 3: cout<<getTop(s)<<endl;
               break;
