@@ -107,7 +107,7 @@ int main()
     if(ch==6)
       break;
   }
-  delete s->array;
+  delete []s->array;
   delete s;
   return 0;
 }
