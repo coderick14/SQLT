@@ -8,7 +8,7 @@ struct node
 };
 void insert(node** head,int data,int pos)
 {
-  struct node *p,*q;
+  struct node *p;
   node* newNode=new node;
   int k=1;
   if(!newNode)
@@ -25,27 +25,27 @@ void insert(node** head,int data,int pos)
   }
   else
   {
-    while((p!=NULL) && k<pos)
+    while((p->next!=NULL) && k<pos-1)
     {
-      q=p;
+      //q=p;
       p=p->next;
       k++;
     }
-    if(p==NULL)     //insert at end
+    if(p->next==NULL)     //insert at end
     {
-      q->next=newNode;
+      p->next=newNode;
       newNode->next=NULL;
     }
     else
     {
-      q->next=newNode;
-      newNode->next=p;
+      newNode->next=p->next;
+      p->next=newNode;
     }
   }
 }
 void del(node** head,int pos)
 {
-  struct node *p,*q;
+  struct node *p;
   p=*head;
   int k=1;
   if(p==NULL)
@@ -60,21 +60,21 @@ void del(node** head,int pos)
   }
   else
   {
-    while((p!=NULL)&& k<pos)
+    while((p->next!=NULL)&& k<pos-1)
     {
-      q=p;
+      //q=p;
       p=p->next;
       k++;
     }
-    if(p==NULL)
+    if(p->next==NULL)
     {
       cout<<"Position exceeds length of list\n";
       return;
     }
     else
     {
-      q->next=p->next;
-      delete p;
+      p->next=p->next->next;
+      delete p->next;
     }
   }
 }
