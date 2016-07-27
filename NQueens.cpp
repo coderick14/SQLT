@@ -1,14 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <map>
 #define N 8
 using namespace std;
 
 struct square	{
 	int x,y;
 };
-char board[N][N];
+int board[N][N];
 vector<square> positions;
 square s;
+//to check safe rows and diagonals
+int row[N]={0},diagonal2[2*N-1]={0};
+map<int,int> diagonal1;
 
 bool placeQueens(int col)	{
 	
@@ -20,30 +24,12 @@ bool placeQueens(int col)	{
 	for(i=0;i<N;i++)	{
 
 		flag = 1;
-		//check the row
-		for(j=col-1;j>=0;j--)	{
-			if(board[i][j] == '1'){
-				flag = 0;
-				break;
-			}
-		}
-		//check the diagonal towards top-left
-		for(j=i-1,k=col-1;j>=0 && k>=0;j--,k--)	{
-			if(board[j][k] == '1')	{
-				flag = 0;
-				break;
-			}
-		}
-		//check the diagonal towards bottom-left
-		for(j=i+1,k=col-1;j<N && k>=0;j++,k--)	{
-			if(board[j][k] == '1')	{
-				flag = 0;
-				break;
-			}
-		}
+		//check if there are any queens in attacking positions
+		if(row[i] || diagonal1[i-col] || diagonal2[i+col])
+			flag = 0;	
 		//if no queens are there in attacking positions, then we can safely place the queen here
 		if(flag)	{
-			board[i][col] = '1';
+			board[i][col] = row[i] = diagonal1[i-col] = diagonal2[i+col] = 1;
 			s.x=i;s.y=col;
 			positions.push_back(s);
 			//if placing it here returns true, then we have been successful. Else backtrack.
@@ -51,7 +37,7 @@ bool placeQueens(int col)	{
 				return true;
 			else	{
 				positions.pop_back();
-				board[i][col] = '0';
+				board[i][col] = row[i] = diagonal1[i-col] = diagonal2[i+col] = 0;
 			}
 		}
 	}
@@ -64,11 +50,13 @@ bool placeQueens(int col)	{
 int main()	{
 	int i,j;
 
+	for(i=(-N+1);i<N;i++)	
+		diagonal1[i] = 0;
 	//initialize all squares to 0
 	//Value of 1 stands for a queen
 	for(i=0;i<N;i++)	{
 		for(j=0;j<N;j++)
-			board[i][j] = '0';
+			board[i][j] = 0;
 	}
 	placeQueens(0);
 	for(i=0;i<N;i++)	{
