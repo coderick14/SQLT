@@ -90,6 +90,16 @@ void traversal(node** head)
   cout<<endl;
   delete temp;
 }
+node* revList(node **head)  {
+    node *temp = NULL,*nextNode = NULL;
+    while(*head != NULL)    {
+        nextNode = (*head)->next;
+        (*head)->next = temp;
+        temp = *head;
+        *head = nextNode;
+    }
+    return temp;
+}
 void deleteList(node** head)
 {
   struct node *p=new node;
@@ -111,7 +121,7 @@ int main()
   struct node* head=NULL;
   do
   {
-    cout<<"1. Insertion\n2. Deletion\n3. Traversal\n4. Exit\n";
+    cout<<"1. Insertion\n2. Deletion\n3. Traversal\n4. Reversal\n5. Exit\n";
     cin>>ch;
     switch (ch)
     {
@@ -125,9 +135,10 @@ int main()
               break;
       case 3: traversal(&head);
               break;
-      case 4: break;
+      case 4: head = revList(&head);
+              break;
     }
-  }while(ch!=4);
+  }while(ch!=5);
   deleteList(&head);
   return 0;
 }
