@@ -33,17 +33,19 @@ void delAtEnd(node **head)    {
         return;
     }
     int isOnlyOneNode = 0;
-    node *current = *head;
-    if(current->next == *head)
-        isOnlyOneNode = 1;
-    while(current->next->next != *head)
+    node *current = *head, *temp = NULL;
+    while(current->next != *head)   {
+        temp = current; 
         current = current->next;
-    node *temp = new node;
-    temp = current->next;
-    current->next = temp->next;
-    delete temp;
-    if(isOnlyOneNode)
+    }
+    if(temp == NULL)    {
+        delete current;
         *head = NULL;
+    }
+    else    {
+        temp->next = current->next;
+        delete current;
+    }
 }
 
 
@@ -58,8 +60,7 @@ void delAtBeg(node **head)    {
         isOnlyOneNode = 1;
     while(current->next != *head)
        current = current->next;
-    node *temp = new node;
-    temp = *head;
+    node *temp = *head;
     current->next = temp->next;
     if(isOnlyOneNode)
         *head = NULL;

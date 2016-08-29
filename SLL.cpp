@@ -73,8 +73,9 @@ void del(node** head,int pos)
     }
     else
     {
-      p->next=p->next->next;
-      delete p->next;
+      node *temp = p->next;  
+      p->next=temp->next;
+      delete temp;
     }
   }
 }
@@ -102,14 +103,12 @@ node* revList(node **head)  {
 }
 void deleteList(node** head)
 {
-  struct node *p=new node;
-  p=*head;
+  node* p=*head;
   if(p==NULL)
     return;
   while(p->next!=NULL)
   {
-    node* temp=new node;
-    temp=p->next;
+    node *temp=p->next;
     p->next=temp->next;
     delete temp;
   }

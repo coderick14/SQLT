@@ -41,8 +41,7 @@ void deleteList(node **head)    {
     if(p == NULL)
         return;
     while(p->next != NULL)  {
-        node* temp = new node;
-        temp = p->next;
+        node *temp = p->next;
         p->next  = temp->next;
         delete temp;
     }

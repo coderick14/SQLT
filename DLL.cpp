@@ -58,8 +58,7 @@ void del(DLLNode **head,int pos)
     cout<<"List empty\n";
     return;
   }
-  struct DLLNode *temp=new DLLNode;
-  temp=*head;
+  DLLNode *temp=*head;
   int k=1;
   if(pos==1)
   {
@@ -111,12 +110,10 @@ void deleteList(DLLNode ** head)
 {
   if(*head==NULL)
     return;
-  struct DLLNode *p=new DLLNode;
-  p=*head;
+  DLLNode *p=*head;
   while(p->next!=NULL)
   {
-    struct DLLNode *temp=new DLLNode;
-    temp=p->next;
+    DLLNode *temp=p->next;
     p->next=temp->next;
     delete temp;
   }
