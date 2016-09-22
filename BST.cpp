@@ -51,12 +51,15 @@ BSTNode* deleteFromBST(BSTNode* &root,int data) {
             root->data = temp->data;
             root->rightChild = deleteFromBST(root->rightChild,root->data);
         }
+        //only has left child
         else if(root->leftChild)    {
             root = root->leftChild;
         }
+        //only has right child
         else if(root->rightChild)   {
             root = root->rightChild;
         }
+        //leaf node
         else
             return NULL;
     }
@@ -70,7 +73,6 @@ void preOrder(BSTNode *root)   {
         preOrder((root)->rightChild);
 
     }
-
 }
 
 void inOrder(BSTNode *root)    {
@@ -80,7 +82,6 @@ void inOrder(BSTNode *root)    {
         inOrder((root)->rightChild);
 
     }
-
 }
 
 void postOrder(BSTNode *root)  {
@@ -90,7 +91,6 @@ void postOrder(BSTNode *root)  {
         cout<<(root)->data<<" ";
 
     }
-
 }
 
 void deleteTree(BSTNode *root) {
@@ -99,7 +99,6 @@ void deleteTree(BSTNode *root) {
     deleteTree((root)->leftChild);
     deleteTree((root)->rightChild);
     delete root;
-
 }
 
 int main()  {
